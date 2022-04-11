@@ -216,6 +216,7 @@ button {
   color: #00cc66;
   font-weight: 600;
   text-align: right;
+  float: right;
 }
 
 .signInBar,

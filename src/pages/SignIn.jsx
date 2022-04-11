@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast, Toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
@@ -35,7 +36,7 @@ function SignIn() {
         navigate('/');
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Bad User Credentials');
     }
   };
 
@@ -71,9 +72,11 @@ function SignIn() {
                 onClick={() => setShowPassword((prevState) => !prevState)}
               />
             </div>
+            {/* <div className='signInBar'> */}
             <Link className='forgotPasswordLink' to='/forgot-password'>
               Forgot Password
             </Link>
+            {/* </div> */}
 
             <div className='signInBar'>
               <p className='signInText'>Sign In</p>
