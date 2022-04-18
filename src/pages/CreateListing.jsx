@@ -10,6 +10,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { db } from '../firebase.config';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 function CreateListing() {
@@ -165,9 +166,23 @@ function CreateListing() {
       return;
     });
 
-    console.log(imgUrls);
+    const formDataCopy = {
+      ...formData,
+      imgUrls,
+      geolocation,
+      timestamp: serverTimestamp(),
+    };
+
+    formDataCopy.location = address;
+    delete formDataCopy.images;
+    delete formDataCopy.address;
+    !formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy);
 
     setLoading(false);
+    toast.success('Listing saved');
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
 
   const onMutate = (e) => {
