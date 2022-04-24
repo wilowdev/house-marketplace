@@ -14,6 +14,7 @@ import { doc, updateDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 function EditListing() {
+  // eslint-disable-next-line
   const [gelocationEnabled, setGelocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [listing, setListing] = useState(null);
@@ -170,6 +171,8 @@ function EditListing() {
                 break;
               case 'running':
                 console.log('Upload is running');
+                break;
+              default:
                 break;
             }
           },
